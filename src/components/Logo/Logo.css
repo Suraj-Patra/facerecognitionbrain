@@ -1,0 +1,8 @@
+.Tilt {
+	/*height: 300px;*/
+	width: 200px;
+	/*background: linear-gradient(89deg, #ff5edf 0%, #04c8de 100%);*/
+}
+.Tilt img{
+	border-radius: 5px;
+}
