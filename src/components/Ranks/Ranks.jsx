@@ -1,11 +1,14 @@
-const Ranks = () => {
+const Ranks = (props) => {
+
+	const { name, entries } = props;
+
 	return(
 		<>
 			<div className='white f3'>
-				{'Andrei, your current rank is...'}
+				{`${name}, your current entry count is...`}
 			</div>
 			<div className='white f1'>
-				{'#5'}
+				{`${entries}`}
 			</div>
 		</>
 	);

@@ -1,5 +1,35 @@
+import { useState } from 'react';
 
 const Signin = (props) => {
+	const { onRouteChange, loadUser } = props;
+	const [ signInEmail, setSignInEmail ] = useState('');
+	const [ signInPassword, setSignInPassword ] = useState('');
+
+
+	const onEmailChange = (e) => {
+		setSignInEmail(e.target.value);
+	}
+	const onPasswordChange = (e) => {
+		setSignInPassword(e.target.value);
+	}
+	const onSubmitSignIn = () => {
+		fetch('http://localhost:3000/signin', {
+			method: 'POST',
+			headers: {'Content-Type' : 'application/json'},
+			body: JSON.stringify({
+				email: signInEmail,
+				password: signInPassword
+			})
+		})	
+			.then(res => res.json())
+			.then(user => {
+				if(user.id){
+					loadUser(user);
+					onRouteChange('home');
+				}
+			})	
+
+	}
 
 	return(
 		<>
@@ -10,11 +40,23 @@ const Signin = (props) => {
 				      <legend className="f1 fw6 ph0 mh0">Sign In</legend>
 				      <div className="mt3">
 				        <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-				        <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address"  id="email-address" />
+				        <input 
+				        	className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
+				        	type="email" 
+				        	name="email-address"  
+				        	id="email-address" 
+				        	onChange={onEmailChange}
+				        />
 				      </div>
 				      <div className="mv3">
 				        <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-				        <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password" />
+				        <input 
+				        	className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
+				        	type="password" 
+				        	name="password"  
+				        	id="password" 
+				        	onChange={onPasswordChange}
+				        />
 				      </div>
 				    </fieldset>
 				    <div className="">
@@ -22,13 +64,13 @@ const Signin = (props) => {
 				      	className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
 				      	type="submit" 
 				      	value="Sign in" 
-				      	onClick={() => props.onRouteChange('home')}
+				      	onClick={onSubmitSignIn}
 				      />
 				    </div>
 				    <div className="lh-copy mt3">
 				      <p 
 				      	className="f6 link dim black db pointer"
-				      	onClick={() => props.onRouteChange('register')}
+				      	onClick={() => onRouteChange('register')}
 				      >Register</p>
 				    </div>
 				  </div>
