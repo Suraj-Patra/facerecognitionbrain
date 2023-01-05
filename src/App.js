@@ -158,3 +158,4 @@ export default App;
 
 
 // Problems in this app are : not optimized, can't detect multiple faces
+// Didn't connected it to the database. First style this, and understand how everything is working.
